@@ -1,15 +1,22 @@
-name: Super-Linter
-on: push
+name: Linting with Super Linter
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  statuses: write  # Allow write access to status checks
+  contents: read   # Read access to contents for the linter to analyze files
+
 jobs:
-  super-lint:
-    name: lint code base
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code
-        uses: actions/checkout@v4.2.2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Run Super-Linter
+      - name: Run Super Linter
         uses: super-linter/super-linter@v7.1.0
         env:
-          DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
